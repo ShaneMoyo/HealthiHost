@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Header from '../header/Header';
 import './landing.css';
 import Navigation from '../navigation/Navigation';
 
