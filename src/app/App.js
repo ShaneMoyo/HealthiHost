@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Landing from '../components/landing/Landing';
 import Navigation from '../components/navigation/Navigation';
+import Auth from '../components/auth/Auth';
 // import Massage from './massage/Massage';
 // import Minerals from './minerals/Minerals';
 // import Movement from './movement/Movement';
@@ -27,6 +28,7 @@ class App extends Component {
           </head>
             <Switch>
               <Route exact path="/" component={Landing}/>
+              <Route exact path="/login" component={Auth}/>
               {/* <Route exact path="/massage" component={Massage}/>
               <Route exact path="/minerals" component={Minerals}/>
               <Route exact path="/movement" component={Movement}/> */}

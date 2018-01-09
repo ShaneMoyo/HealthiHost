@@ -27,6 +27,7 @@ class Navigation extends Component {
           <a class="navbar-item">
             <NavBarLink exact to="/">HealthiHost</NavBarLink>
           </a>
+        
 
           <span class="navbar-burger burger" data-target="navbarMenu" onClick={() => this.onClickNav()}>
             <span></span>
@@ -37,6 +38,9 @@ class Navigation extends Component {
 
         <div class={ this.state.isActive ? "navbar-menu is-active" : "navbar-menu"}>
           <div class="navbar-end">
+            <a class="navbar-item is-transparent">
+              <NavBarLink exact to="/login">Sign In / Sign Up</NavBarLink>
+            </a>
             <a class="navbar-item is-transparent">
               <NavBarLink exact to="/massage">Massage</NavBarLink>
             </a>
