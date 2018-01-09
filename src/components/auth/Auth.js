@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
+import authApi from '../../services/authApi';
 
 class Login extends Component {
   state = {
-    signUp: false
+    createAccount: false
   }
 
   onSubmit = event => {
     event.preventDefault();
     const { elements } = event.target;
-    const credentials = this.state.signUp ? 
+    const { createAccount } = this.state;
+    const credentials = createAccount ? 
     { 
       email: elements['email'].value,
       password: elements['password'].value,
@@ -19,10 +21,12 @@ class Login extends Component {
       email: elements['email'].value,
       password: elements['password'].value,
     };
+    createAccount ? authApi.signUp(credentials) : authApi.signIn(credentials);
+
   }
 
   render(){
-    const { signUp } = this.state;
+    const { createAccount } = this.state;
     return(
       
       
@@ -39,12 +43,12 @@ class Login extends Component {
                           <input class="input is-large" name="email" placeholder="Your Email" autofocus=""/>
                         </div>
                       </div>
-                      { signUp && <div class="field">
+                      { createAccount && <div class="field">
                         <div class="control">
                           <input class="input is-large" name="first name" placeholder="First Name" autofocus=""/>
                         </div>
                       </div>}
-                      { signUp && <div class="field">
+                      { createAccount && <div class="field">
                         <div class="control">
                           <input class="input is-large" name="last name" placeholder="Last Name" autofocus=""/>
                         </div>
@@ -60,12 +64,12 @@ class Login extends Component {
                             Remember me
                         </label>
                       </div>
-                      <button class="button is-block is-info is-large" type="submit">{ signUp ? 'Create Account' : 'Log In' }</button>
+                      <button class="button is-block is-info is-large" type="submit">{ createAccount ? 'Create Account' : 'Log In' }</button>
                     </form>
                   </div>
                   <p class="has-text-grey">
-                    <a class="button is-info is-small" onClick={() => this.setState({ signUp: !signUp })}>
-                      { signUp ? 'Log In' : 'Create an Account' }
+                    <a class="button is-info is-small" onClick={() => this.setState({ createAccount: !createAccount })}>
+                      { createAccount ? 'Log In' : 'Create an Account' }
                     </a>
                     &nbsp;·&nbsp;
                   </p>

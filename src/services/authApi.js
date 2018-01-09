@@ -4,10 +4,10 @@ export default {
   verify(){
     return request.get('/auth/verify');
   },
-  signin(credentials){
+  signIn(credentials){
     return request.post('/auth/signin', credentials);
   },
-  signup(credentials){
+  signUp(credentials){
     return request.post('/auth', credentials);
   }
 };
