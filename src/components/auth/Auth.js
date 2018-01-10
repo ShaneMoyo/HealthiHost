@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import authApi from '../../services/authApi';
+import { signin, signup } from './actions';
+import { connect } from 'react-redux';
 
 class Login extends Component {
   state = {
@@ -10,6 +11,7 @@ class Login extends Component {
     event.preventDefault();
     const { elements } = event.target;
     const { createAccount } = this.state;
+    const { signup, signin } = this.props;
     const credentials = createAccount ? 
     { 
       email: elements['email'].value,
@@ -21,7 +23,8 @@ class Login extends Component {
       email: elements['email'].value,
       password: elements['password'].value,
     };
-    createAccount ? authApi.signUp(credentials) : authApi.signIn(credentials);
+    if(createAccount) signup(credentials) 
+    else signin(credentials);
 
   }
 
@@ -82,4 +85,9 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default connect(({ auth }) => ({
+  error: auth.error,
+  user: auth.user
+}),
+{ signin, signup }
+)(Login);
