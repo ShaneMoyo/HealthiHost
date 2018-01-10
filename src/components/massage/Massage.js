@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Navigation from '../navigation/Navigation';
-import Promo from '../article/Promo';
-import Article from '../article/Article';
+//import Promo from '../article/Promo';
+//import Article from '../article/Article';
 import { 
   Box,
   Hero,
@@ -35,9 +35,9 @@ class Massage extends Component {
     let tabView;
 
     const tabViews = { 
-      tab1: (<Box><Promo/><Article/><Promo/><Article/><Promo/><Promo/><Article/></Box>),
-      tab2: (<Box><Form/></Box>),
-      tab3: (<Box><Card/><Card/></Box>)
+      tab1: (<Box></Box>),
+      tab2: (<Box></Box>),
+      tab3: (<Box></Box>)
     };
   
     return(

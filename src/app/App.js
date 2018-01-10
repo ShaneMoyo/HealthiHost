@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-
 import Landing from '../components/landing/Landing';
 import Navigation from '../components/navigation/Navigation';
 import Auth from '../components/auth/Auth';
-// import Massage from './massage/Massage';
-// import Minerals from './minerals/Minerals';
-// import Movement from './movement/Movement';
+import Massage from '../components/massage/Massage';
+import { checkForToken } from '../components/auth/actions';
+import { connect } from 'react-redux';
+
 import { 
   BrowserRouter as Router, 
   Route,
@@ -16,6 +16,10 @@ import './App.css';
 
 
 class App extends Component {
+
+  componentDidMount() {
+    this.props.checkForToken();
+  }
  
   render() {
     return (
@@ -29,8 +33,8 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={Landing}/>
               <Route exact path="/login" component={Auth}/>
-              {/* <Route exact path="/massage" component={Massage}/>
-              <Route exact path="/minerals" component={Minerals}/>
+              <Route exact path="/massage" component={Massage}/>
+              {/* <Route exact path="/minerals" component={Minerals}/>
               <Route exact path="/movement" component={Movement}/> */}
               <Redirect to="/"/>
             </Switch>   
@@ -43,4 +47,8 @@ class App extends Component {
 
 
 
-export default App;
+export default connect(({ auth }) => ({
+  error: auth.error
+}),
+{ checkForToken }
+)(App);

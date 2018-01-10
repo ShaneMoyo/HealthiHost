@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 import '../../style/mystyle.css';
-
 
 const NavBarLink = props => <NavLink {...props} 
 className="nav-link" 
@@ -19,6 +19,7 @@ class Navigation extends Component {
   }
 
   render() {
+    const { user } = this.props;
     return (
       <div class="hero-head">
       <nav class="navbar is-transparent" >
@@ -39,7 +40,7 @@ class Navigation extends Component {
         <div class={ this.state.isActive ? "navbar-menu is-active" : "navbar-menu"}>
           <div class="navbar-end">
             <a class="navbar-item is-transparent">
-              <NavBarLink exact to="/login">Sign In / Sign Up</NavBarLink>
+              { user ? `Hello, ${user.firstName}`: <NavBarLink exact to="/login">Sign In / Sign Up</NavBarLink>}
             </a>
             <a class="navbar-item is-transparent">
               <NavBarLink exact to="/massage">Massage</NavBarLink>
@@ -60,4 +61,8 @@ class Navigation extends Component {
   }
 }
 
-export default Navigation;
+export default connect(({ auth }) => ({
+  error: auth.error,
+  user: auth.user
+})
+)(Navigation);
