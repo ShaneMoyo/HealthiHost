@@ -10,7 +10,8 @@ export default {
   signup(credentials){
     return request.post('/auth', credentials);
   },
-  getUser(){
-    return request.get('/users/me')
+  getUser(id){
+    const path = id ? `/users/${id}` : '/users/me';
+    return request.get(path);
   }
 };
