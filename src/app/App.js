@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Landing from '../components/landing/Landing';
 import Navigation from '../components/navigation/Navigation';
-import Auth from '../components/auth/Auth';
+import Login from '../components/auth/Login';
 import Massage from '../components/massage/Massage';
 import { checkForToken } from '../components/auth/actions';
 import { connect } from 'react-redux';
@@ -32,7 +32,7 @@ class App extends Component {
           </head>
             <Switch>
               <Route exact path="/" component={Landing}/>
-              <Route exact path="/login" component={Auth}/>
+              <Route exact path="/login" component={Login}/>
               <Route exact path="/massage" component={Massage}/>
               {/* <Route exact path="/minerals" component={Minerals}/>
               <Route exact path="/movement" component={Movement}/> */}

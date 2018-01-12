@@ -1,6 +1,25 @@
 import React, { Component } from 'react';
 import { signin, signup } from './actions';
 import { connect } from 'react-redux';
+import { 
+  Box,
+  Hero,
+  HeroHeader,
+  Nav,
+  NavItem,
+  NavLeft,
+  NavRight,
+  NavCenter,
+  Icon,
+  HeroBody,
+  Container,
+  Title,
+  HeroFooter,
+  Tabs,
+  TabList,
+  Tab,
+  TabLink
+ } from 'bloomer';
 
 class Login extends Component {
   state = {
@@ -8,6 +27,9 @@ class Login extends Component {
   }
 
   onSubmit = event => {
+    console.log('triggered.........................')
+    console.log('triggered.........................')
+    console.log('triggered.........................')
     event.preventDefault();
     const { elements } = event.target;
     const { createAccount } = this.state;
@@ -33,26 +55,26 @@ class Login extends Component {
   render(){
     const { createAccount } = this.state;
     return(
-      <section class="hero  is-fullheight">
-        <div class="hero-body">
           <div class="container has-text-centered">
-            <div class="column is-4 is-offset-4">
-              <h3 class="title has-text-grey">Login</h3>
-              <p class="subtitle has-text-grey">Please login to proceed.</p>
-                  <div class="box">
-
-                    <form onClick={ event => this.onSubmit(event)}>
-                      <div class="field">
-                        <div class="control">
-                          <input class="input is-large" name="email" placeholder="Your Email" autofocus=""/>
-                        </div>
+            <div class="column is-8 is-offset-2">
+              <div class="box" >
+                <form onSubmit={ event => this.onSubmit(event)}>
+                  <h3 class="title has-text-grey">Login</h3>
+                  <p class="subtitle has-text-grey">Please login to proceed.</p>
+                  <hr/>
+                    <div class="field">
+                      <div class="control">
+                        <input class="input is-large" name="email" placeholder="Your Email" autofocus=""/>
                       </div>
-                      { createAccount && <div class="field">
+                    </div>
+                      { createAccount && 
+                      <div class="field">
                         <div class="control">
                           <input class="input is-large" name="first name" placeholder="First Name" autofocus=""/>
                         </div>
                       </div>}
-                      { createAccount && <div class="field">
+                      { createAccount && 
+                      <div class="field">
                         <div class="control">
                           <input class="input is-large" name="last name" placeholder="Last Name" autofocus=""/>
                         </div>
@@ -63,23 +85,20 @@ class Login extends Component {
                         </div>
                       </div>
                       <div class="field">
-                      <div class="control">
-                        <button class="button is-block is-info is-large" type="submit">{ createAccount ? 'Create Account' : 'Log In' }</button>
+                      <div class="control has-text-centered">
+                        <button class="button centered is-block is-info is-medium" type="submit">{ createAccount ? 'Create Account' : 'Log In' }</button>
                       </div>
                       </div>
                     </form>
-                  </div>
-                  <div class="field">
-                    <a class="button is-info is-small" onClick={() => this.setState({ createAccount: !createAccount })}>
+                    <hr/>
+                    <div class="field">
+                    <a class="button is-success is-outlined" onClick={() => this.setState({ createAccount: !createAccount })}>
                       { createAccount ? 'Log In' : 'Create an Account' }
                     </a>
-                    &nbsp;·&nbsp;
-                    </div>
+                  </div>
+                  </div>
                 </div>
               </div>
-            </div>
-      </section>
-      
     );
   }
 }
