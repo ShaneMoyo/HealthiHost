@@ -22,8 +22,8 @@ class Navigation extends Component {
     const { user } = this.props;
     return (
       <div class="hero-head">
-      <nav class="navbar is-transparent" >
-      <div class="container">
+      <nav class="navbar">
+      <div class="container is-fluid">
         <div class="navbar-brand">
           <a class="navbar-item">
             <NavBarLink exact to="/">HealthiHost</NavBarLink>
@@ -56,6 +56,7 @@ class Navigation extends Component {
 
       </div>
      </nav>
+     
      </div>
     );
   }

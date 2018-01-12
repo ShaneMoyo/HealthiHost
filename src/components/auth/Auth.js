@@ -1,25 +1,7 @@
 import React, { Component } from 'react';
 import { signin, signup } from './actions';
 import { connect } from 'react-redux';
-import { 
-  Box,
-  Hero,
-  HeroHeader,
-  Nav,
-  NavItem,
-  NavLeft,
-  NavRight,
-  NavCenter,
-  Icon,
-  HeroBody,
-  Container,
-  Title,
-  HeroFooter,
-  Tabs,
-  TabList,
-  Tab,
-  TabLink
- } from 'bloomer';
+
 
 class Login extends Component {
   state = {

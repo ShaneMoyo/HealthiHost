@@ -38,7 +38,9 @@ class Login extends Component {
       <div> 
         <Hero isColor='info' isSize="1/3">
           <Navigation/>
-          <Auth/>
+          <HeroBody>
+            <Auth/>
+          </HeroBody>
         </Hero>
       </div>
     );
