@@ -32,11 +32,9 @@ class Login extends Component {
   
 
   render(){
-    
-  
     return(
       <div> 
-        <Hero isColor='info' isSize="1/3">
+        <Hero isColor='info' >
           <Navigation/>
           <HeroBody>
             <Auth/>

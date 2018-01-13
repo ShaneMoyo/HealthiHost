@@ -5,7 +5,13 @@ import { connect } from 'react-redux';
 
 class Login extends Component {
   state = {
-    createAccount: false
+    createAccount: false,
+    missingInput: {
+      password: false,
+      email: false,
+      firstName: false,
+      lastName: false
+    }
   }
 
   onSubmit = event => {
@@ -13,29 +19,48 @@ class Login extends Component {
     console.log('triggered.........................')
     console.log('triggered.........................')
     event.preventDefault();
-    const { elements } = event.target;
+    const { email, password, firstName, lastName } = event.target.elements
     const { createAccount } = this.state;
     const { signup, signin } = this.props;
-    const credentials = createAccount ? 
-    { 
-      email: elements['email'].value,
-      password: elements['password'].value,
-      firstName: elements['first name'].value,
-      lastName: elements['last name'].value,
-      roles: ['client']
-    } : 
-    {
-      email: elements['email'].value,
-      password: elements['password'].value,
-    };
-
-    if(createAccount) return signup(credentials);
-    signin(credentials);
-
+    const missingInput = 
+      { 
+        email: !!email.value,
+        password: !!password.value,
+        firstName: !!firstName.value,
+        lastName: !!lastName.value
+      };
+      if(createAccount) {
+        if(!email.value || !password.value || !lastName.value || !firstName.value) {
+          return this.setState({ missingInput });
+        } else {
+        const isTrue = (!email.value || !password.value || !lastName.value || !firstName.value);
+        console.log('sign up isTrue filled out', isTrue)
+        const credentials = { 
+            email: email.value,
+            password: password.value,
+            firstName: firstName.value,
+            lastName: lastName.value,
+            roles: ['client']
+          };
+        signup(credentials);
+        }
+      } else {
+        if(email || password) {
+          return this.setState({ missingInput });
+        } else {
+        const isTrue = (email || password);
+        console.log('login filled out', isTrue)
+        const credentials = { 
+          email: email.value,
+          password: password.value,
+          };
+        signin(credentials);
+        }
+      }
   }
 
   render(){
-    const { createAccount } = this.state;
+    const { createAccount, missingInput } = this.state;
     return(
           <div class="container has-text-centered">
             <div class="column is-8 is-offset-2">
@@ -48,23 +73,27 @@ class Login extends Component {
                       <div class="control">
                         <input class="input is-large" name="email" placeholder="Your Email" autofocus=""/>
                       </div>
+                      { missingInput.email && <p class="help is-danger">Email required</p> }
                     </div>
                       { createAccount && 
                       <div class="field">
                         <div class="control">
-                          <input class="input is-large" name="first name" placeholder="First Name" autofocus=""/>
+                          <input class="input is-large" name="firstName" placeholder="First Name" autofocus=""/>
                         </div>
+                        { missingInput.firstName && <p class="help is-danger">First name required</p> }
                       </div>}
                       { createAccount && 
                       <div class="field">
                         <div class="control">
-                          <input class="input is-large" name="last name" placeholder="Last Name" autofocus=""/>
+                          <input class="input is-large" name="lastName" placeholder="Last Name" autofocus=""/>
                         </div>
+                        { missingInput.lastName && <p class="help is-danger">Last name required</p> }
                       </div>}
                       <div class="field">
                         <div class="control">
                           <input class="input is-large" name="password" placeholder="Your Password"/>
                         </div>
+                        { missingInput.password && <p class="help is-danger">Password required</p> }
                       </div>
                       <div class="field">
                       <div class="control has-text-centered">
