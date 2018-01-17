@@ -8,8 +8,8 @@ export default class Landing extends Component {
 
     return(
         <body>
-          <section class="hero is-info is-fullheight">
             <Navigation/>
+          <section class="hero is-info is-fullheight">
             <div class="hero-body">
               <div class="container has-text-centered">
                 <div class="column is-6 is-offset-3">
