@@ -2,9 +2,9 @@ import { LOADING, DONE_LOADING, ERROR } from '../services/constants';
 const isPromise = val => val && typeof val.then === 'function';
 
 export default ({ dispatch }) => next => async action => {
-  
+  console.log('in promise middlewear..........')
   if(!isPromise(action.payload)) return next(action);
-
+  console.log('in promise middle wher past if')
   const { type, payload } = action;
   dispatch({ type: LOADING });
   
