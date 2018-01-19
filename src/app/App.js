@@ -3,6 +3,8 @@ import Landing from '../components/landing/Landing';
 import Navigation from '../components/navigation/Navigation';
 import Login from '../components/auth/Login';
 import Massage from '../components/massage/Massage';
+import PrivateRoute from '../components/utils/PrivateRoute';
+import Appointment from '../components/massage/Appointment'
 import { checkForToken } from '../components/auth/actions';
 import { connect } from 'react-redux';
 
@@ -28,12 +30,14 @@ class App extends Component {
           <head>
             <meta charset="utf-8"/>
             <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css"/>
             <title>HealthiHost</title>
           </head>
             <Switch>
               <Route exact path="/" component={Landing}/>
               <Route exact path="/login" component={Login}/>
               <Route exact path="/massage" component={Massage}/>
+              <PrivateRoute exact path="/appointment" component={Appointment}/>
               {/* <Route exact path="/minerals" component={Minerals}/>
               <Route exact path="/movement" component={Movement}/> */}
               <Redirect to="/"/>

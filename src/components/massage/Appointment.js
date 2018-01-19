@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { signin, signup, signout } from './actions';
+
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom'
 
 
-class Login extends Component {
+class Appointment extends Component {
   state = {
     createAccount: false,
     email: '',
@@ -46,9 +46,7 @@ class Login extends Component {
     } = this.state;
 
     let error = this.props.error ? 'Authentication Failed' : null;
-    /*eslint-disable*/ 
-    const redirect = location.state ? location.state.from : '/';
-    console.log('redirect path', redirect);
+    const redirect = window.location.state ? window.location.state.from : '/';
 
     if(this.props.user) return <Redirect to={redirect}/>;
 
@@ -56,7 +54,7 @@ class Login extends Component {
           <div class="container has-text-centered">
             <div class="column is-8 is-offset-2">
               <div class="box" >
-                  <h3 class="title has-text-grey">Login</h3>
+                  <h3 class="title has-text-grey">Book Appointment</h3>
                   <p class="subtitle has-text-grey">Please login to proceed.</p>
                   <hr/>
                     <div class="field">
@@ -110,6 +108,5 @@ export default connect(({ auth, loading, error }) => ({
   error,
   loading
 
-}),
-{ signin, signup }
-)(Login);
+})
+)(Appointment);

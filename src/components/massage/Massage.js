@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Navigation from '../navigation/Navigation';
-//import Promo from '../article/Promo';
-//import Article from '../article/Article';
+import Promo from './Promo';
+import Article from './Article';
 import { 
   Box,
   Hero,
@@ -50,15 +50,15 @@ class Massage extends Component {
             </Container>
           </HeroBody>
           <HeroFooter>
-            <Tabs isBoxed isFullWidth>
-              <Container>
-                <TabList>
-                    <Tab isActive={'tab1' === this.state.active } onClick={() => this.onClickTab('tab1')}><TabLink>Overview</TabLink></Tab>
-                    <Tab isActive={'tab2' === this.state.active } onClick={() => this.onClickTab('tab2')}><TabLink>Book Appointment</TabLink></Tab>
-                    <Tab isActive={'tab3' === this.state.active } onClick={() => this.onClickTab('tab3')}><TabLink>About</TabLink></Tab>
-                </TabList>
-              </Container>
-            </Tabs>
+            <div class="animated fadeIn">
+          <Container class="animated shake" hasTextAlign='centered'>
+          <Promo/>
+          <Article/>
+          <Promo/>
+          <Article/>
+          <Promo/>
+          </Container> 
+          </div>
           </HeroFooter>
         </Hero>
         {tabViews[this.state.active]}

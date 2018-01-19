@@ -34,7 +34,7 @@ class Navigation extends Component {
           </a>
           
           <a class="navbar-item is-transparent">
-              { user ? `Hello, ${user.firstName}`: <NavBarLink class="button is-outlined is-success" exact to="/login">Log In</NavBarLink>}
+              { user ? `Hello, ${user.firstName}`: <NavBarLink class="animated shake button is-outlined is-success" exact to="/login">Log In</NavBarLink>}
           </a> 
 
           <span class="navbar-burger burger" data-target="navbarMenu" onClick={() => this.onClickNav()}>
