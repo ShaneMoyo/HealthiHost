@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import Landing from '../components/landing/Landing';
 import Navigation from '../components/navigation/Navigation';
-import Login from '../components/auth/Login';
+import Auth from '../components/auth/Auth';
 import Massage from '../components/massage/Massage';
 import PrivateRoute from '../components/utils/PrivateRoute';
 import Appointment from '../components/massage/Appointment'
 import { checkForToken } from '../components/auth/actions';
 import { connect } from 'react-redux';
+import MyAppointments from '../components/appointments/MyAppointments'
 
 import { 
   BrowserRouter as Router, 
@@ -18,7 +19,6 @@ import {
 
 
 class App extends Component {
-
   componentDidMount() {
     this.props.checkForToken();
   }
@@ -35,11 +35,10 @@ class App extends Component {
           </head>
             <Switch>
               <Route exact path="/" component={Landing}/>
-              <Route exact path="/login" component={Login}/>
+              <Route exact path="/login" component={Auth}/>
               <Route exact path="/massage" component={Massage}/>
               <PrivateRoute exact path="/appointment" component={Appointment}/>
-              {/* <Route exact path="/minerals" component={Minerals}/>
-              <Route exact path="/movement" component={Movement}/> */}
+              <PrivateRoute exact path="/me/appointments" component={Appointment}/>
               <Redirect to="/"/>
             </Switch>   
         </div>

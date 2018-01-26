@@ -1,112 +1,159 @@
 import React, { Component } from 'react';
-
+import { bookAppointment } from './actions';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
+import Navigation from '../navigation/Navigation';
+import { Hero, HeroBody } from 'bloomer';
+import { NavLink } from 'react-router-dom';
 
+const NavBarLink = props => <NavLink {...props} 
+className="nav-link" 
+activeClassName="active"
+/>;
 
-class Appointment extends Component {
+class Login extends Component {
   state = {
-    createAccount: false,
-    email: '',
-    password: '',
-    firstName: '',
-    lastName: ''
+    year: '2018',
+    month: '01',
+    day: '01',
+    service: 'Massage',
+    notes: '',
+    time: '',
+    bookedAppointment: false
+
   }
 
   onSubmit = () => {
     const { 
-      createAccount,
-      email,
-      password,
-      firstName,
-      lastName
+      year,
+      month,
+      day,
+      service,
+      notes,
+      time
     } = this.state;
 
-    const { signup, signin } = this.props;
+    const { 
+      user,
+      error,
+      loading,
+      bookAppointment 
+    } = this.props;
 
-    if(createAccount){
-        signup({ email, password, firstName, lastName }) 
-    } else {
-        signin({ email, password })
+    const appointment = {
+      date: `${year}-${month}-${day}`,
+      service,
+      user: user._id,
+      fulfilled: false,
+      notes,
+      time
     }
+    console.log('appointment', appointment)
+    bookAppointment(appointment);
+    if(error === null && loading === false) this.setState({ bookedAppointment: true })
   }
 
-  handleEmailChange = value => this.setState({ email: value });
-  handlePasswordChange = value => this.setState({ password: value });
-  handleFirstNameChange = value => this.setState({ firstName: value });
-  handleLastNameChange = value => this.setState({ lastName: value });
+  handleMonthChange = value => this.setState({ month: value });
+  handleDayChange = value => this.setState({ day: value });
+  handleNotesChange = value => this.setState({ notes: value });
+  handleTimeChange = value => this.setState({ time: value });
 
   render(){
-    const { 
-      createAccount,
-      email,
-      password,
-      firstName,
-      lastName,
-    } = this.state;
+    const { month, day, notes, time } = this.state;
+    const { error, user, appointments } = this.props;
+    const monthOptions = [];
+    const dayOptions = [];
+    const times = [<option value={5}>5:00 PM</option>, <option value={6}>6:00 PM</option>, <option value={7}>7:00 PM</option>]
+    const booked = appointments.bookedAppointment;
 
-    let error = this.props.error ? 'Authentication Failed' : null;
-    const redirect = window.location.state ? window.location.state.from : '/';
+    for(let i = 1; i < 32; i++ ){
+      dayOptions.push(<option value={i < 10 ? `0${i}` : i}>{i}</option>);
+    }
 
-    if(this.props.user) return <Redirect to={redirect}/>;
+    for(let i = 1; i < 13; i++ ){
+      monthOptions.push(<option value={i < 10 ? `0${i}` : i}>{i}</option>);
+    }
+
+    console.log('dayss',dayOptions)
+    let authError = error ? 'Authentication Failed' : null;
+    /*eslint-disable*/ 
+ 
 
     return(
-          <div class="container has-text-centered">
-            <div class="column is-8 is-offset-2">
-              <div class="box" >
-                  <h3 class="title has-text-grey">Book Appointment</h3>
-                  <p class="subtitle has-text-grey">Please login to proceed.</p>
-                  <hr/>
+      <div> 
+        <Hero isColor='info' >
+          <Navigation/>
+            <HeroBody>
+              <div class="container has-text-centered">
+                <div class="column is-8 is-offset-2">
+                  <div class="box" >
+                    <h3 class="title has-text-grey">{ booked ? 'Appointment Booked Succesfully' : 'Book an Appointment'}</h3>
+                    <p class="subtitle has-text-grey">{ !booked ? 'Please fill out the required fields to proceed.' : null}</p>
+                    <br/>
+                    { !booked ?
+                    <div>
                     <div class="field">
                       <div class="control">
-                        <input onChange={({ target }) => this.handleEmailChange(target.value)} value={email} class="input is-large" name="email" placeholder="Your Email" autofocus=""/>
+                      
+                        <label>Month</label>
+                        <select onChange={({ target }) => this.handleMonthChange(target.value)} value={month} class="input is-small" name="month" autofocus="">
+                          {monthOptions}
+                        </select>
+                        <label>Day</label>
+                        <br/>
+                        <select onChange={({ target }) => this.handleDayChange(target.value)} value={day} class="input is-small" name="day" autofocus="">
+                          {dayOptions}
+                        </select>
+                        <label>Time</label>
+                        <br/>
+                        <select onChange={({ target }) => this.handleTimeChange(target.value)} value={time} class="input is-small" name="day" autofocus="">
+                          {times}
+                        </select>
+                      </div>
+                      
+                    </div>
+
+                    <div class="field">
+                      <div class="control">
+                        <input onChange={({ target }) => this.handleNotesChange(target.value)} value={notes} class="input is-large" name="notes" placeholder="Add a note"/>
                       </div>
                     </div>
-                      { createAccount && 
-                      <div class="field">
-                        <div class="control">
-                          <input onChange={({ target }) => this.handleFirstNameChange(target.value)} value={firstName} class="input is-large" name="firstName" placeholder="First Name" autofocus=""/>
-                        </div>
-                      </div>}
-                      { createAccount && 
-                      <div class="field">
-                        <div class="control">
-                          <input onChange={({ target }) => this.handleLastNameChange(target.value)} value={lastName} class="input is-large" name="lastName" placeholder="Last Name" autofocus=""/>
-                        </div>
-                      </div>}
-                      <div class="field">
-                        <div class="control">
-                          <input onChange={({ target }) => this.handlePasswordChange(target.value)} value={password} class="input is-large" name="password" placeholder="Your Password"/>
-                        </div>
-                      </div>
-                      <div class="field">
+
+                    <div class="field">
                       <div class="control has-text-centered">
                         <button onClick={() => this.onSubmit()} 
-                        class={this.props.loading ? "button is-loading centered is-block is-info is-medium" : "button centered is-block is-info is-medium"} type="button">{ createAccount ? 'Create Account' : 'Log In' }</button>
+                          class={
+                            this.props.loading ?
+                            "button is-loading centered is-block is-info is-medium" :
+                            "button centered is-block is-info is-medium"} 
+                            type="button">
+                            book
+                        </button>
                       </div>
-                      </div>
-                      { this.props.error &&
-                      <div class="field">
-                        <div class="button is-danger">{error}</div>
-                      </div>
-                      }
-                    <hr/>
+                    </div></div>: null }
+                   {booked ? <NavBarLink exact to="/me/appointments">Proceed to my appointments</NavBarLink> : null }
+
+                    {error &&
                     <div class="field">
-                    <a class="button is-success is-outlined" onClick={() => this.setState({ createAccount: !createAccount })}>
-                      { createAccount ? 'Log In' : 'Create an Account' }
-                    </a>
-                  </div>
+                      <div class="button is-danger">{authError}</div>
+                    </div>}
+                    <hr/>
                   </div>
                 </div>
               </div>
+          </HeroBody>
+        </Hero>
+      </div>
     );
   }
 }
 
-export default connect(({ auth, loading, error }) => ({
+export default connect(({ auth, loading, error, appointments }) => ({
+  appointments,
   user: auth.user,
   error,
   loading
 
-})
-)(Appointment);
+}),
+{ bookAppointment }
+)(Login);

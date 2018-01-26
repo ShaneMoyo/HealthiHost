@@ -14,7 +14,6 @@ const PrivateRoute = ({ component: Component, render, user, ...rest }) => (
         state: { from: props.location.pathname }
       }}/>
     );
-
   }}/>
 );
 
